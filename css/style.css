@@ -1,0 +1,204 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #1e293b;
+    --text-light: #64748b;
+    --border-color: #cbd5e1;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --success-color: #10b981;
+    --success-hover: #059669;
+    --warning-color: #f59e0b;
+    --warning-hover: #d97706;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.task-input-section {
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#taskInput:focus {
+    border-color: var(--primary-color);
+}
+
+button {
+    padding: 0.65rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#addTaskBtn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#addTaskBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+#loadSamplesBtn {
+    width: 100%;
+    background-color: #e2e8f0;
+    color: var(--text-color);
+}
+
+#loadSamplesBtn:hover {
+    background-color: #cbd5e1;
+}
+
+.message {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    min-height: 1.2rem;
+}
+
+.task-summary-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: #f1f5f9;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.task-list-section {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+}
+
+#taskList {
+    list-style: none;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    background: #fff;
+    gap: 0.5rem;
+}
+
+.task-text {
+    flex: 1;
+    word-break: break-word;
+    font-size: 0.95rem;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+
+.edit-input {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.task-item button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.complete-btn {
+    background-color: var(--success-color);
+    color: white;
+}
+.complete-btn:hover {
+    background-color: var(--success-hover);
+}
+
+.edit-btn {
+    background-color: var(--warning-color);
+    color: white;
+}
+.edit-btn:hover {
+    background-color: var(--warning-hover);
+}
+
+.remove-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+.remove-btn:hover {
+    background-color: var(--danger-hover);
+}

@@ -1,6 +1,10 @@
-import { state, sampleTasksData } from './taskData.js';
-import { displayMessage, generateTaskId } from './taskUtils.js';
-import { createTaskElement, updateTaskCounts } from './taskDisplay.js';
+let taskIdCounter = 1;
+
+const sampleTasksData = [
+    'Review DOM selectors',
+    'Practice createElement',
+    'Study event delegation'
+];
 
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
@@ -11,8 +15,57 @@ const totalCount = document.getElementById('totalCount');
 const pendingCount = document.getElementById('pendingCount');
 const completedCount = document.getElementById('completedCount');
 
-function refreshCounts() {
-    updateTaskCounts(taskList, totalCount, pendingCount, completedCount);
+function displayMessage(messageElement, text) {
+    messageElement.textContent = text;
+}
+
+function generateTaskId() {
+    const id = `task-${taskIdCounter}`;
+    taskIdCounter += 1;
+    return id;
+}
+
+function createTaskElement(taskText, taskId) {
+    const li = document.createElement('li');
+    li.className = 'task-item';
+    li.dataset.taskId = taskId;
+    li.dataset.state = 'pending';
+
+    const span = document.createElement('span');
+    span.className = 'task-text';
+    span.textContent = taskText; 
+
+    const completeBtn = document.createElement('button');
+    completeBtn.className = 'complete-btn';
+    completeBtn.textContent = 'Complete';
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'edit-btn';
+    editBtn.textContent = 'Edit';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-btn';
+    removeBtn.textContent = 'Remove';
+
+    li.appendChild(span);
+    li.appendChild(completeBtn);
+    li.appendChild(editBtn);
+    li.appendChild(removeBtn);
+
+    return li;
+}
+
+function updateTaskCounts() {
+    const tasks = Array.from(taskList.querySelectorAll('.task-item'));
+    const total = tasks.length;
+    
+    const completedTasks = tasks.filter(({ dataset: { state } }) => state === 'completed');
+    const completed = completedTasks.length;
+    const pending = total - completed;
+
+    totalCount.textContent = total;
+    pendingCount.textContent = pending;
+    completedCount.textContent = completed;
 }
 
 function addTask(taskText) {
@@ -23,12 +76,12 @@ function addTask(taskText) {
     }
 
     displayMessage(taskMessage, '');
-    const taskId = generateTaskId(state);
+    const taskId = generateTaskId();
     const taskItem = createTaskElement(trimmedText, taskId);
 
     taskList.appendChild(taskItem);
     taskInput.value = '';
-    refreshCounts();
+    updateTaskCounts();
 }
 
 function toggleTaskComplete(taskItem) {
@@ -38,7 +91,7 @@ function toggleTaskComplete(taskItem) {
     } else {
         taskItem.dataset.state = 'pending';
     }
-    refreshCounts();
+    updateTaskCounts();
 }
 
 function beginTaskEdit(taskItem) {
@@ -80,7 +133,7 @@ function saveTaskEdit(taskItem) {
 
 function removeTask(taskItem) {
     taskItem.remove();
-    refreshCounts();
+    updateTaskCounts();
 }
 
 function handleTaskListClick(event) {
@@ -106,14 +159,14 @@ function loadSampleTasks() {
     const fragment = document.createDocumentFragment();
 
     sampleTasksData.forEach(sampleText => {
-        const taskId = generateTaskId(state);
+        const taskId = generateTaskId();
         const taskItem = createTaskElement(sampleText, taskId);
         fragment.appendChild(taskItem);
     });
 
     taskList.appendChild(fragment);
     displayMessage(taskMessage, '');
-    refreshCounts();
+    updateTaskCounts();
 }
 
 addTaskBtn.addEventListener('click', () => {
@@ -132,4 +185,4 @@ loadSamplesBtn.addEventListener('click', () => {
 
 taskList.addEventListener('click', handleTaskListClick);
 
-refreshCounts();
+updateTaskCounts();
